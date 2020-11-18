@@ -5,11 +5,14 @@ import secrets
 
 import pyperclip
 
-from win10toast import ToastNotifier 
+from win10toast import ToastNotifier
 
 
 UPPER_CASE_ALPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
                         'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+LOWER_CASE_ALPHABETS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+                        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 SPECIAL_CHARACTERS = ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*',
                       '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '<', ',', '>', '.', '?', '/']
@@ -26,9 +29,11 @@ var_numerical = 0
 
 resultant_password = ''
 
+root = ''
+
 
 def mainWindow():
-    global select_uppercase, select_special_char, select_numerical_char, var_numerical, var_special, var_uppercase, resultant_password
+    global select_uppercase, select_special_char, select_numerical_char, var_numerical, var_special, var_uppercase, resultant_password, root
     root = Tk()
     root.config(bg="white")
     root.title("PASSWORD GENERATION AND MANAGEMENT SYSTEM")
@@ -59,7 +64,7 @@ def mainWindow():
         LF, text='Resultant Password:', fg="steel blue", font=('arial', 11, 'bold'))
     resultant_password_txt.grid(row=4, column=0, padx=10, pady=10)
     resultant_password = Label(
-        LF, text='gsgdhg2hh3h&@345', fg="steel blue", font=('arial', 11, 'bold'))
+        LF, text='gsgdhg2hh3h&@345', fg="steel blue", font=('arial', 11, 'bold'), width=16)
     resultant_password.grid(row=4, column=1, padx=10, pady=10)
 
     generate_btn = Button(RF, text="GENERATE RANDOM PASSWORD", command=generatePassword,
@@ -69,10 +74,10 @@ def mainWindow():
                       pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
     copy_btn.grid(row=1, column=0, padx=5, pady=5)
     reset_btn = Button(RF, text="RESET", command=resetPreferences, pady=6,
-                       bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=15)
+                       bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
     reset_btn.grid(row=2, column=0, padx=5, pady=5)
     password_manager = Button(RF, text="PASSWORD MANAGER", command=passwordManager,
-                              pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=18)
+                              pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
     password_manager.grid(row=3, column=0, padx=5, pady=5)
 
     root.mainloop()
@@ -82,11 +87,80 @@ def generatePassword():
     if var_uppercase.get() == 1 and var_special.get() == 1 and var_numerical.get() == 1:
         resPassword = ''
         while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
             get_random_uppercase = secrets.choice(UPPER_CASE_ALPHABETS)
             get_random_special = secrets.choice(SPECIAL_CHARACTERS)
             get_random_numerical = secrets.choice(NUMERICAL_CHARACTERS)
 
-            resPassword += get_random_uppercase + get_random_special + get_random_numerical
+            resPassword += get_random_lowercase + get_random_uppercase + \
+                get_random_special + get_random_numerical
+            if len(resPassword) >= 8:
+                break
+        resultant_password.config(text=resPassword)
+    elif var_uppercase.get() == 0 and var_special.get() == 0 and var_numerical.get() == 0:
+        weak_password_warning = ToastNotifier()
+        weak_password_warning.show_toast("Password Generator Notifier", "Password is Insecure! Generate a stronger one by choose one or more from the checkboxes.",
+                                         duration=10, threaded=True)
+    elif var_uppercase.get() == 0 and var_special.get() == 0 and var_numerical.get() == 1:
+        resPassword = ''
+        while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
+            get_random_numerical = secrets.choice(NUMERICAL_CHARACTERS)
+
+            resPassword += get_random_lowercase + get_random_numerical
+            if len(resPassword) >= 8:
+                break
+        resultant_password.config(text=resPassword)
+    elif var_uppercase.get() == 0 and var_special.get() == 1 and var_numerical.get() == 0:
+        resPassword = ''
+        while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
+            get_random_special = secrets.choice(SPECIAL_CHARACTERS)
+
+            resPassword += get_random_lowercase + get_random_special
+            if len(resPassword) >= 8:
+                break
+        resultant_password.config(text=resPassword)
+    elif var_uppercase.get() == 0 and var_special.get() == 1 and var_numerical.get() == 1:
+        resPassword = ''
+        while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
+            get_random_numerical = secrets.choice(NUMERICAL_CHARACTERS)
+            get_random_special = secrets.choice(SPECIAL_CHARACTERS)
+
+            resPassword += get_random_lowercase + get_random_special + get_random_numerical
+            if len(resPassword) >= 8:
+                break
+        resultant_password.config(text=resPassword)
+    elif var_uppercase.get() == 1 and var_special.get() == 0 and var_numerical.get() == 0:
+        resPassword = ''
+        while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
+            get_random_uppercase = secrets.choice(UPPER_CASE_ALPHABETS)
+
+            resPassword += get_random_lowercase + get_random_uppercase
+            if len(resPassword) >= 8:
+                break
+        resultant_password.config(text=resPassword)
+    elif var_uppercase.get() == 1 and var_special.get() == 0 and var_numerical.get() == 1:
+        resPassword = ''
+        while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
+            get_random_uppercase = secrets.choice(UPPER_CASE_ALPHABETS)
+            get_random_numerical = secrets.choice(NUMERICAL_CHARACTERS)
+
+            resPassword += get_random_lowercase + get_random_uppercase + get_random_numerical
+            if len(resPassword) >= 8:
+                break
+        resultant_password.config(text=resPassword)
+    elif var_uppercase.get() == 1 and var_special.get() == 1 and var_numerical.get() == 0:
+        resPassword = ''
+        while True:
+            get_random_lowercase = secrets.choice(LOWER_CASE_ALPHABETS)
+            get_random_uppercase = secrets.choice(UPPER_CASE_ALPHABETS)
+            get_random_special = secrets.choice(SPECIAL_CHARACTERS)
+
+            resPassword += get_random_lowercase + get_random_uppercase + get_random_special
             if len(resPassword) >= 8:
                 break
         resultant_password.config(text=resPassword)
@@ -95,8 +169,8 @@ def generatePassword():
 def copyToClipboard():
     textCopiedNotifier = ToastNotifier()
     pyperclip.copy(resultant_password.cget('text'))
-    textCopiedNotifier.show_toast("Password Generator Notifier","Password Copied to Clipboard Successfully!",
-    duration=10, threaded=True)
+    textCopiedNotifier.show_toast("Password Generator Notifier", "Password Copied to Clipboard Successfully!",
+                                  duration=10, threaded=True)
 
 
 def resetPreferences():
@@ -107,8 +181,12 @@ def resetPreferences():
 
 
 def passwordManager():
-    # new window
-    pass
+    root.destroy()
+    pwd_manager = Tk()
+    pwd_manager.config(bg="white")
+    pwd_manager.title("PASSWORD MANAGER")
+    pwd_manager.geometry("700x450+0+0")
+    pwd_manager.resizable(False, False)
 
 
 if __name__ == "__main__":
