@@ -7,6 +7,17 @@ import pyperclip
 
 from win10toast import ToastNotifier
 
+import mysql.connector
+
+# DB  
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="root"
+)
+
+print(mydb)
 
 UPPER_CASE_ALPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
                         'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -30,6 +41,11 @@ var_numerical = 0
 resultant_password = ''
 
 root = ''
+
+email_text = ''
+password_text = ''
+url_text = ''
+username_text = ''
 
 
 def mainWindow():
@@ -181,13 +197,69 @@ def resetPreferences():
 
 
 def passwordManager():
-    root.destroy()
+    global email_text, username_text, url_text, password_text
+    email_id = StringVar()
+    username_text = StringVar()
+    url_text = StringVar()
+    password_text = StringVar()
     pwd_manager = Tk()
     pwd_manager.config(bg="white")
     pwd_manager.title("PASSWORD MANAGER")
     pwd_manager.geometry("700x450+0+0")
     pwd_manager.resizable(False, False)
+    Tops = Frame(pwd_manager, width=700, height=50, bd=16, relief="raise")
+    Tops.pack(side=TOP)
+    mainTitle = Label(Tops, text='Password Manager', borderwidth=1, relief="groove",
+                      fg="steel blue", font=('arial', 15, 'bold'), bd=10, anchor='w')
+    mainTitle.grid(row=0, column=0)
+    LF = Frame(pwd_manager, width=400, height=450, bd=16, relief="raise")
+    LF.pack(side=LEFT)
+    RF = Frame(pwd_manager, width=300, height=450, bd=16, relief="raise")
+    RF.pack(side=RIGHT)
+    details = Label(LF, text='Enter the details',
+                    fg="steel blue", font=('arial', 12, 'bold'))
+    details.grid(row=0, column=0, padx=10, pady=10)
+    email = Label(
+        LF, text='Email', fg="steel blue", font=('arial', 11, 'bold'))
+    email.grid(row=1, column=0)
+    txtEmail = Entry(LF, font=('arial', 11, 'bold'), bd=20, width=26,
+                     bg="powder blue", justify='left', textvariable=email_id)
+    txtEmail.grid(row=1, column=1)
+    password = Label(
+        LF, text='Password', fg="steel blue", font=('arial', 11, 'bold'))
+    password.grid(row=2, column=0)
+    txtPassword = Entry(LF, font=('arial', 11, 'bold'), bd=20, width=26,
+                        bg="powder blue", justify='left', textvariable=password_text, show='*')
+    txtPassword.grid(row=2, column=1)
+    username = Label(
+        LF, text='Username', fg="steel blue", font=('arial', 11, 'bold'))
+    username.grid(row=3, column=0)
+    txtUsername = Entry(LF, font=('arial', 11, 'bold'), bd=20, width=26,
+                        bg="powder blue", justify='left', textvariable=username_text)
+    txtUsername.grid(row=3, column=1)
+    url = Label(
+        LF, text='URL / App Name', fg="steel blue", font=('arial', 11, 'bold'))
+    url.grid(row=4, column=0)
+    txtURL = Entry(LF, font=('arial', 11, 'bold'), bd=20, width=26,
+                        bg="powder blue", justify='left', textvariable=url_text)
+    txtURL.grid(row=4, column=1)
+    save_btn = Button(RF, text="SAVE", command=saveData,
+                      pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
+    save_btn.grid(row=0, column=0, padx=5, pady=5)
+    show_passwords = Button(RF, text="SHOW ALL PASSWORDS", command=showAllPasswords,
+                      pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
+    show_passwords.grid(row=1, column=0, padx=5, pady=5)
+    root.destroy()
+    pwd_manager.mainloop()
 
+
+def saveData():
+    # save data to SQL Database 
+    pass
+
+def showAllPasswords():
+    # retrieve all the passwords stored in DB and display
+    pass
 
 if __name__ == "__main__":
     mainWindow()
