@@ -9,15 +9,24 @@ from win10toast import ToastNotifier
 
 import mysql.connector
 
-# DB  
+
+# DB
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="root"
+    host="localhost",
+    user="root",
+    password="root"
 )
 
-print(mydb)
+dbcursor = mydb.cursor()
+
+# Create a DB if not exists
+dbcursor.execute('CREATE DATABASE IF NOT EXISTS password_manager')
+# set the database after creation
+mydb.database = 'password_manager'
+# Create a table if not exists
+dbcursor.execute(
+    'CREATE TABLE IF NOT EXISTS accounts (email varchar(80), password varchar(80), username varchar(80), url varchar(80) PRIMARY KEY)')
 
 UPPER_CASE_ALPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
                         'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -43,10 +52,14 @@ resultant_password = ''
 root = ''
 
 email_text = ''
-password_text = ''
-url_text = ''
 username_text = ''
+url_text = ''
+password_text = ''
 
+txtEmail = ''
+txtPassword = ''
+txtUsername = ''
+txtURL = ''
 
 def mainWindow():
     global select_uppercase, select_special_char, select_numerical_char, var_numerical, var_special, var_uppercase, resultant_password, root
@@ -92,7 +105,7 @@ def mainWindow():
     reset_btn = Button(RF, text="RESET", command=resetPreferences, pady=6,
                        bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
     reset_btn.grid(row=2, column=0, padx=5, pady=5)
-    password_manager = Button(RF, text="PASSWORD MANAGER", command=passwordManager,
+    password_manager = Button(RF, text="PASSWORD MANAGER", command=lambda: passwordManager(root),
                               pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
     password_manager.grid(row=3, column=0, padx=5, pady=5)
 
@@ -196,17 +209,17 @@ def resetPreferences():
     resultant_password.config(text='gsgdhg2hh3h&@345')
 
 
-def passwordManager():
-    global email_text, username_text, url_text, password_text
-    email_id = StringVar()
-    username_text = StringVar()
-    url_text = StringVar()
-    password_text = StringVar()
-    pwd_manager = Tk()
+def passwordManager(rt):
+    global email_text, username_text, url_text, password_text, txtEmail, txtPassword, txtUsername, txtURL
+    pwd_manager = Toplevel(rt)
     pwd_manager.config(bg="white")
     pwd_manager.title("PASSWORD MANAGER")
     pwd_manager.geometry("700x450+0+0")
     pwd_manager.resizable(False, False)
+    email_text = StringVar()
+    username_text = StringVar()
+    url_text = StringVar()
+    password_text = StringVar()
     Tops = Frame(pwd_manager, width=700, height=50, bd=16, relief="raise")
     Tops.pack(side=TOP)
     mainTitle = Label(Tops, text='Password Manager', borderwidth=1, relief="groove",
@@ -223,7 +236,7 @@ def passwordManager():
         LF, text='Email', fg="steel blue", font=('arial', 11, 'bold'))
     email.grid(row=1, column=0)
     txtEmail = Entry(LF, font=('arial', 11, 'bold'), bd=20, width=26,
-                     bg="powder blue", justify='left', textvariable=email_id)
+                     bg="powder blue", justify='left', textvariable=email_text)
     txtEmail.grid(row=1, column=1)
     password = Label(
         LF, text='Password', fg="steel blue", font=('arial', 11, 'bold'))
@@ -241,25 +254,48 @@ def passwordManager():
         LF, text='URL / App Name', fg="steel blue", font=('arial', 11, 'bold'))
     url.grid(row=4, column=0)
     txtURL = Entry(LF, font=('arial', 11, 'bold'), bd=20, width=26,
-                        bg="powder blue", justify='left', textvariable=url_text)
+                   bg="powder blue", justify='left', textvariable=url_text)
     txtURL.grid(row=4, column=1)
     save_btn = Button(RF, text="SAVE", command=saveData,
                       pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
     save_btn.grid(row=0, column=0, padx=5, pady=5)
-    show_passwords = Button(RF, text="SHOW ALL PASSWORDS", command=showAllPasswords,
+    reset_btn = Button(RF, text="RESET", command=resetDataFields,
                       pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
-    show_passwords.grid(row=1, column=0, padx=5, pady=5)
-    root.destroy()
+    reset_btn.grid(row=1, column=0, padx=5, pady=5)
+    show_passwords = Button(RF, text="SHOW ALL PASSWORDS", command=showAllPasswords,
+                            pady=6, bd=8, fg="steel blue", font=('arial', 10, 'bold'), width=26)
+    show_passwords.grid(row=2, column=0, padx=5, pady=5)
+    # root.destroy()
     pwd_manager.mainloop()
 
 
 def saveData():
-    # save data to SQL Database 
-    pass
+    # save data to SQL Database
+    data_to_insert = 'INSERT INTO accounts (email, password, username, url) VALUES (%s, %s, %s, %s)'
+    values = (txtEmail.get(), txtPassword.get(), txtUsername.get(), txtURL.get())
+    try:
+        dbcursor.execute(data_to_insert, values)
+        mydb.commit()
+        dataInsertedNotifier = ToastNotifier()
+        dataInsertedNotifier.show_toast("Password Manager Notifier", "Data Saved Successfully!",
+                                  duration=10, threaded=True)
+    except MySQLdb.IntegrityError:
+        dataInsertedNotifier = ToastNotifier()
+        dataInsertedNotifier.show_toast("Password Manager Notifier", "Data Save was Unsuccessful!",
+                                  duration=10, threaded=True)
+    finally:
+        dbcursor.close()
+
+def resetDataFields():
+    email_text.set("")
+    password_text.set("")
+    username_text.set("")
+    url_text.set("")
 
 def showAllPasswords():
     # retrieve all the passwords stored in DB and display
     pass
+
 
 if __name__ == "__main__":
     mainWindow()
