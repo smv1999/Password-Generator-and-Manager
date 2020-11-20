@@ -14,7 +14,8 @@ Generally, we sign-up for various websites such as E-commerce, Social Media and 
 * Fork this repository and clone it.
 * Requirements : You can install the Python packages by using this command in the Command Prompt: 
 ```pip install -r requirements.txt```
-* After that you are good to proceed and have a demo of the application.
+* Run the Python file, ```password_generator.py```
+* After that you are good to proceed and enjoy the demo of the application.
 
 
 ### 💡 Feature and UI/UX Improvements ✨
