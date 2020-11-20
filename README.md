@@ -22,3 +22,22 @@ Generally, we sign-up for various websites such as E-commerce, Social Media and 
 * Make the UI more attractive
 * Improve the security of password storage
 
+### Screenshots
+
+* Password Generation
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/password_generation_image.png)
+
+* Save Password 
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/save_password.png)
+
+* Get Password
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/get_password.png)
+
+* Display all Passwords
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/all_passwords.png)
+
+Note: If you want to contribute to this project, follow the guidelines given in CONTRIBUTNG.md.
