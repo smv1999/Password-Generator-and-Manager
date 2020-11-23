@@ -14,7 +14,8 @@ Generally, we sign-up for various websites such as E-commerce, Social Media and 
 * Fork this repository and clone it.
 * Requirements : You can install the Python packages by using this command in the Command Prompt: 
 ```pip install -r requirements.txt```
-* After that you are good to proceed and have a demo of the application.
+* Run the Python file, ```password_generator.py```
+* After that you are good to proceed and enjoy the demo of the application.
 
 
 ### 💡 Feature and UI/UX Improvements ✨
@@ -22,3 +23,22 @@ Generally, we sign-up for various websites such as E-commerce, Social Media and 
 * Make the UI more attractive
 * Improve the security of password storage
 
+### Screenshots
+
+* Password Generation
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/password_generation_image.png)
+
+* Save Password 
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/save_password.png)
+
+* Get Password
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/get_password.png)
+
+* Display all Passwords
+
+![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/all_passwords.png)
+
+Note: If you want to contribute to this project, follow the guidelines given in [CONTRIBUTING.md](https://github.com/smv1999/Password-Generator-and-Manager/blob/main/CONTRIBUTING.md).
