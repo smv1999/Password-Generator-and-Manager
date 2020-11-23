@@ -41,4 +41,4 @@ Generally, we sign-up for various websites such as E-commerce, Social Media and 
 
 ![alt-text](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/all_passwords.png)
 
-Note: If you want to contribute to this project, follow the guidelines given in [CONTRIBUTING.md] (https://github.com/smv1999/Password-Generator-and-Manager/blob/main/CONTRIBUTING.md).
+Note: If you want to contribute to this project, follow the guidelines given in [CONTRIBUTING.md](https://github.com/smv1999/Password-Generator-and-Manager/blob/main/CONTRIBUTING.md).
