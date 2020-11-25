@@ -1,6 +1,6 @@
 ## 🔑 Password Generator and Manager
 
-![alttext](https://raw.githubusercontent.com/smv1999/Password-Generator-and-Manager/main/mainimage.png)
+![Password-Generator-and-Manager](https://socialify.git.ci/smv1999/Password-Generator-and-Manager/image?forks=1&issues=1&language=1&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Dark)
 
 ### Introduction
 Generally, we sign-up for various websites such as E-commerce, Social Media and others and many a times are not able to manage passwords and usernames effectively. What if we had a Password Management System that could help us in this direction ? Yes, what you think is right? This is a Password Generator and Management System. The Password Generation module is responsible for helping you create unique and secure password. The Password Management module is responsible to store and retrieve the passwords pertaining to the websites in which you have / want to have an account. 
