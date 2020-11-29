@@ -28,6 +28,11 @@ Generally, we sign-up for various websites such as E-commerce, Social Media and 
 * Make the UI more attractive
 * Improve the security of password storage
 
+### Dependencies and Requirements
+
+* Have you a look at the dependencies [here](https://github.com/smv1999/Password-Generator-and-Manager/blob/main/requirements.txt)
+* This application runs on Windows 10 only as the toast messages displayed to the users are specific to Windows 10 OS.
+
 ### Screenshots
 
 * Password Generation
