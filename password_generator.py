@@ -134,7 +134,7 @@ def generatePassword():
     elif var_uppercase.get() == 0 and var_special.get() == 0 and var_numerical.get() == 0:
         weak_password_warning = ToastNotifier()
         weak_password_warning.show_toast("Password Generator Notifier", "Password is Insecure! Generate a stronger one by choose one or more from the checkboxes.",
-                                         duration=10, threaded=True)
+                                         duration=10, threaded=True, icon_path='password.ico')
     elif var_uppercase.get() == 0 and var_special.get() == 0 and var_numerical.get() == 1:
         resPassword = ''
         while True:
@@ -204,7 +204,7 @@ def copyToClipboard(title, content, textToCopy):
     textCopiedNotifier = ToastNotifier()
     pyperclip.copy(textToCopy)
     textCopiedNotifier.show_toast(title, content,
-                                  duration=10, threaded=True)
+                                  duration=10, threaded=True, icon_path='password.ico')
 
 
 def resetPreferences():
@@ -291,12 +291,12 @@ def saveData():
         mydb.commit()
         dataInsertedNotifier = ToastNotifier()
         dataInsertedNotifier.show_toast("Password Manager Notifier", "Data Saved Successfully!",
-                                        duration=10, threaded=True)
+                                        duration=10, threaded=True, icon_path='password.ico')
         resetDataFields()
     except MySQLdb.IntegrityError:
         dataInsertedNotifier = ToastNotifier()
         dataInsertedNotifier.show_toast("Password Manager Notifier", "Data Save was Unsuccessful!",
-                                        duration=10, threaded=True)
+                                        duration=10, threaded=True, icon_path='password.ico')
 
 
 def resetDataFields():
@@ -363,7 +363,7 @@ def retrievePasswordFromDB():
                         "Password Copied to Clipboard Successfully!", your_password.cget('text'))
     else:
         notifier.show_toast("Password Manager Notifier", "Record Not Found!",
-                            duration=10, threaded=True)
+                            duration=10, threaded=True, icon_path='password.ico')
 
 
 def resetURLField():
