@@ -1,11 +1,9 @@
-<p align="center">
-## 🔑 Password Generator and Manager
+ ## 🔑 Password Generator and Manager
 
 ![GitHub followers](https://img.shields.io/github/followers/smv1999?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/smv1999/Password-Generator-and-Manager?style=for-the-badge)
 ![Lines of code](https://img.shields.io/tokei/lines/github/smv1999/Password-Generator-and-Manager?style=for-the-badge)
 
-</p>
 
 ![Password-Generator-and-Manager](https://socialify.git.ci/smv1999/Password-Generator-and-Manager/image?forks=1&issues=1&language=1&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Dark)
 
